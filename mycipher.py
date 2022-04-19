@@ -5,8 +5,9 @@ def cipher(text, key):
 	start = 65
 	new_text = ""
 	for char in text:
-		asc = (ord(char)-start + key) % 26
-		new_text += chr(asc)
+		if 65 <= ord(char) <= 90:
+			asc = (ord(char)-start + key) % 26
+			new_text += chr(asc+start)
 	return new_text
 
 
@@ -16,13 +17,22 @@ key = int(sys.argv[1])
 for lines in sys.stdin:
 	all_lines_ciphered.append(cipher(lines, key))
 
-for lines in all_lines_ciphered:
-	blocks = []
-	i = 0
-	while i < len(lines):
-		blocks.append(lines[i:i+5])
-		i += 5
-	new_str = " ".join(blocks)
-	sys.stdout.write(new_str)
+
+lines = "".join(all_lines_ciphered)
+i = 0
+new = ""
+count= 0
+while i < len(lines):
+	if count == 10:
+		count = 0
+		new += "\n"
+	blc = lines[i:i + 5]
+	new += blc + " "
+	count += 1
+	i += 5
+
+print(new)
+
+
 
 ## FINISHED!!

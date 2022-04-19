@@ -31,7 +31,7 @@ while i < len(lines):
 	count += 1
 	i += 5
 
-print(new)
+sys.stdout.write(new)
 
 
 
